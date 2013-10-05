@@ -1,0 +1,108 @@
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2013-09-30 18:56:57 -0700
+Connecting to database specified by database.yml
+Served asset /rails.png - 304 Not Modified (268ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-09-30 18:57:00 -0700
+Processing by MoviesController#index as HTML
+Completed 500 Internal Server Error in 2ms
+
+ActiveRecord::StatementInvalid (Could not find table 'movies'):
+  app/controllers/movies_controller.rb:10:in `index'
+
+
+  Rendered /home/saasbook/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.14/lib/action_dispatch/middleware/templates/rescues/_trace.erb (7.2ms)
+  Rendered /home/saasbook/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.14/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.9ms)
+  Rendered /home/saasbook/.rvm/gems/ruby-1.9.3-p448/gems/actionpack-3.2.14/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (209.4ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml
+  [1m[36m (0.2ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (56.2ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (37.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (15.7ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateMovies (20111119180638)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (7.9ms)[0m  CREATE TABLE "movies" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "rating" varchar(255), "description" text, "release_date" datetime, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (1.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20111119180638')[0m
+  [1m[35m (1.9ms)[0m  commit transaction
+  [1m[36m (1.5ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+
+
+Started GET "/assets/rails.png" for 127.0.0.1 at 2013-10-04 21:27:15 -0700
+Connecting to database specified by database.yml
+Served asset /rails.png - 200 OK (3ms)
+
+
+Started GET "/movies" for 127.0.0.1 at 2013-10-04 21:30:39 -0700
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT "movies".* FROM "movies" [0m
+  Rendered movies/index.html.haml within layouts/application (16.0ms)
+Compiled application.css  (0ms)  (pid 10544)
+Compiled jquery.js  (8ms)  (pid 10544)
+Compiled jquery_ujs.js  (0ms)  (pid 10544)
+Compiled application.js  (53ms)  (pid 10544)
+Completed 200 OK in 250ms (Views: 238.6ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-04 21:30:40 -0700
+Served asset /application.css - 200 OK (9ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:40 -0700
+Served asset /jquery_ujs.js - 200 OK (16ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:40 -0700
+Served asset /jquery.js - 200 OK (52ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:40 -0700
+Served asset /application.js - 200 OK (111ms)
+
+
+Started GET "/movies/1" for 127.0.0.1 at 2013-10-04 21:30:51 -0700
+Processing by MoviesController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = ? LIMIT 1  [["id", "1"]]
+  Rendered movies/show.html.haml within layouts/application (7.1ms)
+Completed 200 OK in 21ms (Views: 12.0ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-04 21:30:51 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:51 -0700
+Served asset /jquery.js - 304 Not Modified (10ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:51 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:51 -0700
+Served asset /application.js - 304 Not Modified (3ms)
+
+
+Started GET "/movies/new" for 127.0.0.1 at 2013-10-04 21:30:57 -0700
+Processing by MoviesController#new as HTML
+  Rendered movies/new.html.haml within layouts/application (23.3ms)
+Completed 200 OK in 29ms (Views: 28.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-10-04 21:30:57 -0700
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:57 -0700
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:57 -0700
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-10-04 21:30:57 -0700
+Served asset /application.js - 304 Not Modified (10ms)
