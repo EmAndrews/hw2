@@ -8,9 +8,9 @@ class MoviesController < ApplicationController
 
   def index
 		@all_ratings = Movie.all_ratings
-    ratings = []
+    @filtered_ratings = Movie.all_ratings
     if params[:ratings] != nil
-      ratings = params[:ratings].keys
+      @filtered_ratings = params[:ratings].keys
     end
     
     sort = params[:sort]
@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
     elsif sort == 'date'
       @movies = Movie.all.sort_by &:release_date
     else
-      @movies = Movie.all
+      @movies = Movie.find(:all, :conditions => ["rating IN (?)", @filtered_ratings])
     end
   end
 
