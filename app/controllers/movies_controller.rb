@@ -7,6 +7,12 @@ class MoviesController < ApplicationController
   end
 
   def index
+		@all_ratings = Movie.all_ratings
+    ratings = []
+    if params[:ratings] != nil
+      ratings = params[:ratings].keys
+    end
+    
     sort = params[:sort]
     if sort == 'title'
       @movies = Movie.order("lower(title) ASC").all
@@ -44,10 +50,5 @@ class MoviesController < ApplicationController
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
   end
-
-  def ascending
-    @movie = movie.sort_by &:title
-  end
-
 
 end
