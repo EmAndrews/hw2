@@ -8,42 +8,41 @@ class MoviesController < ApplicationController
 
   def index
 		@all_ratings = Movie.all_ratings
-    @filtered_ratings = Movie.all_ratings
-    if session[:filtered_ratings] == nil
-      session[:filtered_ratings] = @filtered_ratings
-    else
-      # This populates @filtered_ratings with checked box values
-      if params[:ratings] != nil
-        @filtered_ratings = []
-        params[:ratings].each do |k,v|
-          if v == "1"
-            @filtered_ratings << k
-          end
-        end
-      # if there are no checked box vals, we do:
-      else
-        #if session[:filtered_ratings] == nil 
-        #  @filtered_ratings = []
-        #  session[:filtered_ratings] = []
-        #else
-        @filtered_ratings = session[:filtered_ratings]
-        #end
-        params[:ratings] = Hash.new()
-        session[:filtered_ratings].each do |k|
-          params[:ratings][k] = "1"
-        end
-      end
-      session[:filtered_ratings] = @filtered_ratings
-    end
+		redirect = false
 
-    sort = params[:sort]
-    if sort == 'title'
-      @movies = Movie.order("lower(title) ASC").all
-    elsif sort == 'date'
-      @movies = Movie.all.sort_by &:release_date
-    else
-      @movies = Movie.find(:all, :conditions => ["rating IN (?)", @filtered_ratings])
-    end
+		if params[:sort] == nil
+			current_sort = session[:sort]
+			if session[:sort] != nil
+				redirect = true
+			end
+		else
+			current_sort = params[:sort]
+			session[:sort] = params[:sort] 
+		end
+		
+		if params[:ratings] == nil and session[:ratings] == nil
+			@filtered_ratings = {"G" => "1", "PG" => "1", "PG-13" => "1", "R" => "1", "NC-17" => "1"}
+		elsif params[:ratings] == nil
+			@filtered_ratings = session[:ratings]
+			redirect = true
+		else
+			@filtered_ratings = params[:ratings]
+			session[:ratings] = params[:ratings]
+		end
+		
+		if redirect
+			redirect_to movies_path(:ratings => @filtered_ratings, :sort => current_sort)
+			redirect = false
+			return
+		end
+
+		if current_sort == 'title'
+			@movies = Movie.order("lower(title) ASC").find(:all, :conditions => ["rating IN (?)", @filtered_ratings.keys])
+		elsif current_sort == 'date'
+			@movies = Movie.find(:all, :conditions => ["rating IN (?)", @filtered_ratings.keys]).sort_by &:release_date
+		else
+			@movies = Movie.find(:all, :conditions => ["rating IN (?)", @filtered_ratings.keys])
+		end
   end
 
   def new
