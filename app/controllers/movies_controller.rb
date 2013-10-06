@@ -9,8 +9,19 @@ class MoviesController < ApplicationController
   def index
 		@all_ratings = Movie.all_ratings
     @filtered_ratings = Movie.all_ratings
+    #session[:filtered_ratings] = Movie.all_ratings
     if params[:ratings] != nil
-      @filtered_ratings = params[:ratings].keys
+      @filtered_ratings = []
+      params[:ratings].each do |k,v|
+        if v == "1"
+          @filtered_ratings << k
+        end
+      end
+    
+
+      #@filtered_ratings = params[:ratings].where( 
+    else
+      params[:ratings] = {"G" => "1", "PG" => "1", "PG-13" => "1", "R" => "1", "NC-17" => "1"}
     end
     
     sort = params[:sort]
