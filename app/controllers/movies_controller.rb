@@ -9,21 +9,28 @@ class MoviesController < ApplicationController
   def index
 		@all_ratings = Movie.all_ratings
     @filtered_ratings = Movie.all_ratings
-    #session[:filtered_ratings] = Movie.all_ratings
-    if params[:ratings] != nil
-      @filtered_ratings = []
-      params[:ratings].each do |k,v|
-        if v == "1"
-          @filtered_ratings << k
+    if session[:filtered_ratings] == nil
+      session[:filtered_ratings] = @filtered_ratings
+    else
+      # This populates @filtered_ratings with checked box values
+      if params[:ratings] != nil
+        @filtered_ratings = []
+        params[:ratings].each do |k,v|
+          if v == "1"
+            @filtered_ratings << k
+          end
+        end
+      # if there are no checked box vals, we do:
+      else
+        @filtered_ratings = session[:filtered_ratings]
+        params[:ratings] = Hash.new()
+        session[:filtered_ratings].each do |k|
+          params[:ratings][k] = "1"
         end
       end
-    
-
-      #@filtered_ratings = params[:ratings].where( 
-    else
-      params[:ratings] = {"G" => "1", "PG" => "1", "PG-13" => "1", "R" => "1", "NC-17" => "1"}
+      session[:filtered_ratings] = @filtered_ratings
     end
-    
+
     sort = params[:sort]
     if sort == 'title'
       @movies = Movie.order("lower(title) ASC").all
